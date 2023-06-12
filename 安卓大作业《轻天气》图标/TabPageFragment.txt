@@ -1,0 +1,30 @@
+public class TabPageFragment extends Fragment {
+    private String title;
+    private int xml;
+    TabPageFragment(String title, int xml){
+        super();
+        this.title = title;
+        this.xml = xml;
+    }
+    String getTitle(){
+        return title;
+    }
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        /*
+        根据fragments传入的layout，生成不同的碎片。在不同碎片间切换，实质是在利用ViewPage的特性不停地在生成TabPageFragment碎片，时间长了必然卡/
+         */
+        return inflater.inflate(xml,container,false);
+    }
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(3,StaggeredGridLayoutManager.VERTICAL);
+        RecyclerView recyclerView = view.findViewById(R.id.news_part_sports);
+        recyclerView.setLayoutManager(staggeredGridLayoutManager);
+        SportsAdapter adapter = new SportsAdapter()
+        recyclerView.setAdapter(adapter);
+    }
+
+
+}
